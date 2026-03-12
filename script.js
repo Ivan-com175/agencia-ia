@@ -227,48 +227,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateCartUI();
 
-    // 10. LÓGICA DE CHECKOUT (PAGO)
-    const checkoutItemsContainer = document.getElementById('checkout-items');
-    const checkoutTotalPriceFinal = document.getElementById('checkout-total-price');
-
-    if(checkoutItemsContainer && checkoutTotalPriceFinal) {
-        let checkoutCart = JSON.parse(localStorage.getItem('neuralmark_cart')) || [];
-        let total = 0;
-        
-        if (checkoutCart.length === 0) {
-            checkoutItemsContainer.innerHTML = '<p style="color: var(--text-muted); font-style: italic;">No tienes productos en tu pedido.</p>';
-        } else {
-            checkoutCart.forEach(item => {
-                total += item.price;
-                checkoutItemsContainer.innerHTML += `<div class="checkout-item"><span class="checkout-item-name">${item.name}</span><span class="checkout-item-price">€${item.price}</span></div>`;
-            });
-        }
-        
-        checkoutTotalPriceFinal.innerText = `€${total}`;
-        
-        const checkoutForm = document.getElementById('checkout-form');
-        if(checkoutForm) {
-            checkoutForm.addEventListener('submit', (e) => {
-                e.preventDefault(); 
-                if(checkoutCart.length === 0) { alert("Añade algún producto al carrito antes de pagar."); return; }
-                const btn = checkoutForm.querySelector('button[type="submit"]');
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando pago...'; btn.style.opacity = '0.7';
-                
-                setTimeout(() => {
-                    btn.innerHTML = '<i class="fas fa-check"></i> Pago Completado con Éxito';
-                    btn.style.background = "linear-gradient(45deg, #28a745, #20c997)"; btn.style.opacity = '1';
-                    
-                    localStorage.removeItem('neuralmark_cart'); // Vaciamos el carrito
-                    localStorage.setItem('pago_exitoso', 'true'); // <--- LE DAMOS LA LLAVE VIP
-                    
-                    setTimeout(() => { window.location.href = 'exito.html'; }, 2000); 
-                }, 2500);
-            });
-        }
-    }
-
     // ==========================================
-    // 11. GESTIÓN VISUAL DE LA SESIÓN DE USUARIO
+    // 10. GESTIÓN VISUAL DE LA SESIÓN DE USUARIO
     // ==========================================
     const loginLinks = document.querySelectorAll('.login-link');
     const usuarioActivo = localStorage.getItem('ia_user');

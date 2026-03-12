@@ -9,24 +9,53 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
-        const usuario = localStorage.getItem('ia_user');
-        const haPagado = localStorage.getItem('pago_exitoso');
-        
-        // Si no hay usuario logueado O no tiene el ticket de pago... ¡Patada al inicio!
-        if (!usuario || !haPagado) {
-            window.location.replace("index.html");
-        }
-    </script>
+    // 1. Miramos si en la URL viene el código de éxito de Gumroad
+    const urlParams = new URLSearchParams(window.location.search);
+    const pagoConfirmado = urlParams.get('pago') === 'completado';
+
+    // 2. Si viene de pagar, le damos el permiso permanente en este navegador
+    if (pagoConfirmado) {
+        localStorage.setItem('pago_exitoso', 'true');
+        // Limpiamos la URL para que no se vea el "?pago=completado"
+        window.history.replaceState(null, null, window.location.pathname);
+    }
+
+    // 3. Verificamos si tiene los dos requisitos para estar aquí
+    const usuarioLogueado = localStorage.getItem('ia_user');
+    const tieneTicketPago = localStorage.getItem('pago_exitoso');
+
+    if (!usuarioLogueado || !tieneTicketPago) {
+        // Si falta algo, lo mandamos al inicio
+        window.location.replace("index.html");
+    }
+</script>
+
 </head>
 <body class="auth-page">
     <div class="custom-cursor" id="custom-cursor"></div>
 
     <header class="glass-header">
-        <div class="container header-content" style="justify-content: center;">
-            <a href="index.html" class="logo">
+        <div class="container header-content">
+            <a href="./index.html" class="logo">
                 <i class="fas fa-house-user"></i>
                 <h2>IA Inmobiliaria</h2>
             </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="./index.html#metodo">Método</a></li>
+                    <li><a href="./producto.html">Producto</a></li>
+                    <li><a href="./index.html#demostraciones">Simulador IA</a></li>
+                </ul>
+            </nav>
+            <div class="actions">
+                <div class="cart-btn-wrapper">
+                    <button id="cart-toggle" class="icon-btn" aria-label="Ver carrito">
+                        <i class="fas fa-shopping-cart"></i><span class="badge-count">0</span>
+                    </button>
+                </div>
+                <a href="./login.html" class="login-link">Log In</a>
+                <a href="./producto.html" class="cta-button">ACCEDER AL KIT</a>
+            </div>
         </div>
     </header>
 
