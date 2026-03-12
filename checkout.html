@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago Seguro - IA Inmobiliaria</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2083/2083213.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="custom-cursor" id="custom-cursor"></div>
+
+    <header class="glass-header">
+        <div class="container header-content" style="justify-content: space-between;">
+            <a href="index.html" class="logo">
+                <i class="fas fa-house-user"></i>
+                <h2>IA Inmobiliaria</h2>
+            </a>
+            <div class="actions">
+                <a href="index.html" class="cta-button outline" style="padding: 8px 15px; white-space: nowrap;">Cancelar y Volver</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="checkout-section fade-in-section">
+        <div class="container checkout-wrapper">
+            <div class="checkout-form-col">
+                <h2 style="margin-bottom: 30px; border-bottom: var(--border-thin); padding-bottom: 15px;">Detalles de Facturación</h2>
+                <form id="checkout-form">
+                    <div class="form-group">
+                        <label>Nombre Completo</label>
+                        <input type="text" placeholder="Ej: Maria Lopez" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Correo Electrónico</label>
+                        <input type="email" placeholder="Para enviarte el Master Kit" required>
+                    </div>
+                    
+                    <h3 style="margin-top: 40px; margin-bottom: 20px; color: var(--accent-cyan);">Método de Pago <i class="fab fa-cc-stripe" style="color: #635bff;"></i></h3>
+                    
+                    <div class="form-group">
+                        <label>Número de Tarjeta</label>
+                        <input type="text" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                    </div>
+                    <div style="display: flex; gap: 20px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label>Caducidad</label>
+                            <input type="text" placeholder="MM/AA" maxlength="5" required>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>CVC</label>
+                            <input type="password" placeholder="123" maxlength="3" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="cta-button full-width large" style="margin-top: 20px;">Pagar de forma segura <i class="fas fa-lock" style="margin-left: 8px;"></i></button>
+                    <p style="font-size: 0.8em; color: var(--text-muted); text-align: center; margin-top: 15px;">Pago encriptado con seguridad AES-256 de nivel bancario.</p>
+                </form>
+            </div>
+
+            <div class="checkout-summary-col">
+                <h2 style="margin-bottom: 30px; border-bottom: var(--border-thin); padding-bottom: 15px;">Tu Pedido</h2>
+                <div id="checkout-items"></div>
+                <div class="checkout-total-box">
+                    <span>Total a pagar:</span>
+                    <span id="checkout-total-price" style="color: var(--accent-violet);">€0</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contacto" style="margin-top: 0;">
+        <div class="container"><p class="copyright">© 2026 Iván Camps Caballer. Todos los derechos reservados.</p></div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

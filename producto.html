@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Kit IA Inmobiliaria - Iván Camps</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2083/2083213.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="custom-cursor" id="custom-cursor"></div>
+
+    <header class="glass-header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-house-user"></i>
+                <h2>IA Inmobiliaria</h2>
+            </a>
+            <div class="actions">
+                <div class="cart-btn-wrapper">
+                    <button class="icon-btn" onclick="toggleCart()" aria-label="Ver carrito">
+                        <i class="fas fa-shopping-cart"></i><span class="badge-count">0</span>
+                    </button>
+                </div>
+                <a href="login.html" class="login-link">Log In</a>
+                <a href="index.html" class="cta-button outline" style="padding: 8px 15px;">Volver</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="product-detail fade-in-section">
+        <div class="container product-detail-wrapper">
+            <div class="product-detail-image">
+                <div class="hologram-effect">
+                    <i class="fas fa-book-open"></i>
+                    <div class="scan-line"></div>
+                </div>
+            </div>
+            
+            <div class="product-detail-info">
+                <div class="badge" style="position: relative; top: 0; left: 0; transform: none; display: inline-block; margin-bottom: 15px;">VERSIÓN PREMIUM 2026</div>
+                <h1 class="product-title">Master Kit IA Inmobiliaria</h1>
+                <div class="product-price-large">€149<span>/pago único</span></div>
+                
+                <p class="product-description">
+                    El Sistema Operativo definitivo para dejar de perseguir propietarios y empezar a atraer exclusivas. No es una lista de textos sueltos, es Ingeniería de Prompts aplicada al Método de la Triple "A".
+                </p>
+
+                <h3 class="features-title">¿Qué incluye el Kit?</h3>
+                <ul class="product-features-list">
+                    <li><i class="fas fa-check-circle"></i> 50 Mega-Prompts Estratégicos listos para copiar y pegar.</li>
+                    <li><i class="fas fa-check-circle"></i> Integración y sistema de CRM Inmobiliario.</li>
+                    <li><i class="fas fa-check-circle"></i> Plantillas de atracción probadas en el mercado.</li>
+                    <li><i class="fas fa-check-circle"></i> Licencia de uso oficial por Iván Camps.</li>
+                </ul>
+
+                <div class="product-actions">
+                    <button class="cta-button large add-to-cart-btn" data-id="1" data-name="Master Kit IA Inmobiliaria" data-price="149">Añadir al Carrito</button>
+                </div>
+                <p class="guarantee" style="color: #ff4d4d; margin-top: 15px;">
+                    <i class="fas fa-exclamation-triangle" style="color: #ff4d4d;"></i> Aviso: Prohibida la reventa o copia de este documento.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div id="cart-overlay" class="cart-overlay"></div>
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h2>Tu Carrito</h2>
+            <button id="close-cart" class="icon-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items-container"></div>
+        <div class="cart-footer">
+            <div class="cart-total">Total: <span id="cart-total-price">€0</span></div>
+            <a href="checkout.html" class="cta-button full-width" style="text-decoration: none;">Finalizar Compra <i class="fas fa-lock" style="margin-left: 8px;"></i></a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
