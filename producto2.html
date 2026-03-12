@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimizador de Ads Pro - NeuralMark AI</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2083/2083213.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="custom-cursor" id="custom-cursor"></div>
+
+    <header class="glass-header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-brain"></i>
+                <h2>NeuralMark AI</h2>
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html#servicios">Servicios</a></li>
+                    <li><a href="index.html#productos">Productos</a></li>
+                    <li><a href="index.html#precios">Precios</a></li>
+                </ul>
+            </nav>
+            <div class="actions">
+                <button id="theme-toggle" class="icon-btn" aria-label="Cambiar tema">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <div class="cart-btn-wrapper">
+                    <button class="icon-btn" onclick="toggleCart()" aria-label="Ver carrito">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge-count">0</span>
+                    </button>
+                </div>
+                <a href="login.html" class="login-link">Log In</a>
+                <a href="index.html" class="cta-button outline" style="padding: 8px 15px;">Volver</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="product-detail fade-in-section">
+        <div class="container product-detail-wrapper">
+            <div class="product-detail-image">
+                <div class="hologram-effect">
+                    <i class="fas fa-network-wired"></i>
+                    <div class="scan-line"></div>
+                </div>
+            </div>
+            
+            <div class="product-detail-info">
+                <div class="badge" style="position: relative; top: 0; left: 0; transform: none; display: inline-block; margin-bottom: 15px; background: linear-gradient(45deg, #007bff, #00ffff);">MAYOR AHORRO</div>
+                <h1 class="product-title">Optimizador de Ads Pro</h1>
+                <div class="product-price-large">€799<span>/pago único de instalación</span></div>
+                
+                <p class="product-description">
+                    Conecta tus cuentas de Google, Meta y TikTok Ads. Esta IA analiza patrones de rendimiento en milisegundos, redistribuye el presupuesto hacia las campañas ganadoras y pausa automáticamente las que generan pérdidas, reduciendo tu CPA hasta un 60%.
+                </p>
+
+                <h3 class="features-title">¿Qué incluye?</h3>
+                <ul class="product-features-list">
+                    <li><i class="fas fa-check-circle"></i> Ajuste de pujas 24/7 basado en algoritmos predictivos.</li>
+                    <li><i class="fas fa-check-circle"></i> Integración multicanal (Meta, Google, LinkedIn, TikTok).</li>
+                    <li><i class="fas fa-check-circle"></i> A/B testing automatizado de copys y creatividades.</li>
+                    <li><i class="fas fa-check-circle"></i> Reportes de atribución avanzados libres de cookies.</li>
+                </ul>
+
+                <div class="product-actions">
+                    <button class="cta-button large add-to-cart-btn" data-id="2" data-name="Optimizador de Ads Pro" data-price="799">Añadir al Carrito</button>
+                    <button class="cta-button outline large">Agendar Demo</button>
+                </div>
+                <p class="guarantee"><i class="fas fa-shield-alt"></i> Garantía de rendimiento: Si no bajamos tu CPA, te devolvemos el dinero.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contacto">
+        <div class="container">
+            <p class="copyright">© 2026 NeuralMark AI. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <div id="cart-overlay" class="cart-overlay"></div>
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h2>Tu Carrito</h2>
+            <button id="close-cart" class="icon-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items-container"></div>
+        <div class="cart-footer">
+            <div class="cart-total">Total: <span id="cart-total-price">€0</span></div>
+            <a href="checkout.html" class="cta-button full-width" style="text-decoration: none;">Finalizar Compra <i class="fas fa-lock" style="margin-left: 8px;"></i></a>
+        </div>
+    </div>
+
+    <button id="scroll-to-top" class="hidden" aria-label="Volver arriba"><i class="fas fa-arrow-up"></i></button>
+    <script src="script.js"></script>
+</body>
+</html>
