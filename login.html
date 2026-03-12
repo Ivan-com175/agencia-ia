@@ -126,7 +126,12 @@
                     btnGoogle.style.background = "#28a745"; 
                     btnGoogle.style.color = "white";
                     btnGoogle.innerHTML = '<i class="fas fa-check"></i> Acceso Correcto';
-                    setTimeout(() => { window.location.href = "index.html"; }, 1000);
+                    const haPagado = localStorage.getItem('pago_exitoso');
+                    if (haPagado) {
+                    window.location.href = "exito.html"; // Si ha pagado, directo a descargar
+                    } else {
+                        window.location.href = "index.html"; // Si no, al inicio normal
+                    }
                 }).catch((error) => {
                     alert("Error con Google: " + error.message);
                     btnGoogle.innerHTML = textoOriginal;

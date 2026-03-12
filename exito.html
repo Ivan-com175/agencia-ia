@@ -7,52 +7,43 @@
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2083/2083213.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-   <script>
-    // 1. Detectamos el "ticket" de Gumroad desde la URL de Netlify
-    const urlParams = new URLSearchParams(window.location.search);
-    const pagoConfirmado = urlParams.get('pago') === 'completado';
 
-    if (pagoConfirmado) {
-        localStorage.setItem('pago_exitoso', 'true');
-        // Esto limpia la URL para que no se vea el "?pago=completado" en Netlify
-        window.history.replaceState(null, null, window.location.pathname);
-    }
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const pagoConfirmado = urlParams.get('pago') === 'completado';
 
-    const usuarioLogueado = localStorage.getItem('ia_user');
-    const tieneTicketPago = localStorage.getItem('pago_exitoso');
+        // 1. Si viene de pagar, le guardamos la "llave" de pago en su navegador
+        if (pagoConfirmado) {
+            localStorage.setItem('pago_exitoso', 'true');
+        }
 
-    if (!usuarioLogueado || !tieneTicketPago) {
-        window.location.replace("index.html");
-    }
-</script>
+        const usuarioLogueado = localStorage.getItem('ia_user');
+        const tieneTicketPago = localStorage.getItem('pago_exitoso');
 
+        // 2. FILTRO 1: Si no ha iniciado sesión, lo mandamos a login.html para que se identifique
+        if (!usuarioLogueado) {
+            window.location.replace("login.html");
+        } 
+        // 3. FILTRO 2: Si está logueado pero NO tiene ticket de pago, al inicio (intruso)
+        else if (!tieneTicketPago) {
+            window.location.replace("index.html");
+        }
+
+        // Si pasa los filtros y todo está OK, limpiamos la URL para que quede profesional
+        if (pagoConfirmado && usuarioLogueado) {
+            window.history.replaceState(null, null, window.location.pathname);
+        }
+    </script>
 </head>
 <body class="auth-page">
     <div class="custom-cursor" id="custom-cursor"></div>
 
     <header class="glass-header">
-        <div class="container header-content">
-            <a href="./index.html" class="logo">
+        <div class="container header-content" style="justify-content: center;">
+            <a href="./producto.html" class="logo">
                 <i class="fas fa-house-user"></i>
                 <h2>IA Inmobiliaria</h2>
             </a>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="./index.html#metodo">Método</a></li>
-                    <li><a href="./producto.html">Producto</a></li>
-                    <li><a href="./index.html#demostraciones">Simulador IA</a></li>
-                </ul>
-            </nav>
-            <div class="actions">
-                <div class="cart-btn-wrapper">
-                    <button id="cart-toggle" class="icon-btn" aria-label="Ver carrito">
-                        <i class="fas fa-shopping-cart"></i><span class="badge-count">0</span>
-                    </button>
-                </div>
-                <a href="./login.html" class="login-link">Log In</a>
-                <a href="./producto.html" class="cta-button">ACCEDER AL KIT</a>
-            </div>
         </div>
     </header>
 
@@ -63,30 +54,25 @@
             <div class="success-icon">
                 <i class="fas fa-check-circle"></i>
             </div>
-            <h1 style="color: var(--text-main); margin-bottom: 10px;">¡Pago Completado!</h1>
+            <h1 style="color: var(--text-main); margin-bottom: 10px;">¡Acceso Confirmado!</h1>
             <p style="color: var(--text-muted); font-size: 1.1em; margin-bottom: 30px;">
-                Bienvenido al Método de la Triple "A". Tu acceso al Master Kit ha sido confirmado.
+                Bienvenido al Método de la Triple "A". Ya puedes descargar tu material premium.
             </p>
 
             <div class="download-box">
                 <i class="fas fa-file-pdf" style="font-size: 3em; color: #ff4d4d; margin-bottom: 15px;"></i>
                 <h3>Master Kit IA Inmobiliaria</h3>
                 <p>Versión Premium 2026 (PDF)</p>
-                <a href="Master_Kit_IA_Inmobiliaria.pdf" download="Master_Kit_IA_Inmobiliaria.pdf" class="cta-button full-width large" style="margin-top: 20px;">
+                
+                <a href="Master_Kit_IA_Inmobiliaria.pdf" download="Master_Kit_IA_Inmobiliaria.pdf" class="cta-button full-width large" style="margin-top: 20px; text-decoration: none;">
                     Descargar Master Kit <i class="fas fa-download" style="margin-left: 10px;"></i>
                 </a>
             </div>
 
             <div class="crm-links" style="margin-top: 30px; text-align: left; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 8px; border: var(--border-thin);">
-                <h4 style="color: var(--accent-cyan); margin-bottom: 15px;"><i class="fas fa-link"></i> Enlaces Adicionales (CRM)</h4>
+                <h4 style="color: var(--accent-cyan); margin-bottom: 15px;"><i class="fas fa-link"></i> Herramientas Incluidas</h4>
                 <ul style="list-style: none; padding: 0; margin: 0;">
-                    <li>
-                        <a href="https://docs.google.com/spreadsheets/d/138q2UoTVnvgbSoyoZxM92eOfz89M4eAYe4RVXTwodX0/copy?usp=sharing" target="_blank" style="display: flex; align-items: center; justify-content: space-between; color: var(--text-main); text-decoration: none;">
-                            <span>CRM Inmobiliario - Master Kit</span>
-                            <i class="fas fa-external-link-alt" style="color: var(--text-muted); font-size: 0.8em;"></i>
-                        </a>
-                    </li>
-                    <li>
+                    <li style="margin-bottom: 15px;">
                         <a href="https://docs.google.com/document/d/1zNYKBfYdjiH09qIIzrw4y9R0wCUfn6jhwVv9btpu6_I/copy?usp=sharing" target="_blank" style="display: flex; align-items: center; justify-content: space-between; color: var(--text-main); text-decoration: none;">
                             <span>Plantilla - Auditoría de Anuncios</span>
                             <i class="fas fa-external-link-alt" style="color: var(--text-muted); font-size: 0.8em;"></i>
@@ -102,10 +88,16 @@
             </div>
 
             <p style="font-size: 0.8em; color: var(--text-muted); margin-top: 30px;">
-                Se ha enviado una copia de tu factura al correo electrónico proporcionado.
+                Si tienes problemas con la descarga, contacta con soporte técnico.
             </p>
         </div>
     </section>
+
+    <footer style="margin-top: 0; padding: 30px 0; border-top: var(--border-thin);">
+        <div class="container">
+            <p class="copyright" style="margin-top: 0;">© 2026 Iván Camps Caballer. Todos los derechos reservados.</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
