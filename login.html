@@ -99,6 +99,7 @@
         const auth = getAuth(app);
         const googleProvider = new GoogleAuthProvider();
 
+        // 1. INICIO DE SESIÓN CON GOOGLE
         const btnGoogle = document.getElementById('google-login-btn');
         if(btnGoogle) {
             btnGoogle.addEventListener('click', () => {
@@ -109,7 +110,8 @@
                     btnGoogle.style.background = "#28a745"; 
                     btnGoogle.style.color = "white";
                     btnGoogle.innerHTML = '<i class="fas fa-check"></i> Acceso Correcto';
-                    setTimeout(() => { window.location.href = "exito.html"; }, 1000);
+                    // Redirigir a inicio (index.html)
+                    setTimeout(() => { window.location.href = "index.html"; }, 1000);
                 }).catch((error) => {
                     alert("Error con Google: " + error.message);
                     btnGoogle.innerHTML = textoOriginal;
@@ -117,6 +119,7 @@
             });
         }
 
+        // 2. REGISTRO POR CORREO Y CONTRASEÑA
         const formRegister = document.getElementById('form-register');
         if(formRegister) {
             formRegister.addEventListener('submit', (e) => {
@@ -128,9 +131,10 @@
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creando...';
 
                 createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
-                    alert("¡Cuenta creada! Ya puedes iniciar sesión.");
-                    btn.innerHTML = 'Crear Cuenta Gratis'; 
-                    document.getElementById('tab-login').click(); 
+                    btn.style.background = "#28a745"; 
+                    btn.innerHTML = '<i class="fas fa-check"></i> Cuenta Creada';
+                    // Al crearse la cuenta, Firebase inicia sesión automáticamente. Redirigimos a inicio.
+                    setTimeout(() => { window.location.href = "index.html"; }, 1000);
                 }).catch((error) => {
                     alert("Error: " + error.message); 
                     btn.innerHTML = 'Crear Cuenta Gratis';
@@ -138,6 +142,7 @@
             });
         }
 
+        // 3. INICIO DE SESIÓN POR CORREO Y CONTRASEÑA
         const formLogin = document.getElementById('form-login');
         if(formLogin) {
             formLogin.addEventListener('submit', (e) => {
@@ -151,7 +156,8 @@
                 signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
                     btn.style.background = "#28a745"; 
                     btn.innerHTML = '<i class="fas fa-check"></i> Acceso Correcto';
-                    setTimeout(() => { window.location.href = "exito.html"; }, 1000);
+                    // Redirigir a inicio (index.html)
+                    setTimeout(() => { window.location.href = "index.html"; }, 1000);
                 }).catch((error) => {
                     alert("Usuario o contraseña incorrectos."); 
                     btn.innerHTML = 'Entrar a mi cuenta';
