@@ -257,10 +257,36 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(() => {
                     btn.innerHTML = '<i class="fas fa-check"></i> Pago Completado con Éxito';
                     btn.style.background = "linear-gradient(45deg, #28a745, #20c997)"; btn.style.opacity = '1';
-                    localStorage.removeItem('neuralmark_cart'); 
-                    setTimeout(() => { window.location.href = 'exito.html'; }, 2000); // <- Redirige a éxito
+                    
+                    localStorage.removeItem('neuralmark_cart'); // Vaciamos el carrito
+                    localStorage.setItem('pago_exitoso', 'true'); // <--- LE DAMOS LA LLAVE VIP
+                    
+                    setTimeout(() => { window.location.href = 'exito.html'; }, 2000); 
                 }, 2500);
             });
         }
+    }
+
+    // ==========================================
+    // 11. GESTIÓN VISUAL DE LA SESIÓN DE USUARIO
+    // ==========================================
+    const loginLinks = document.querySelectorAll('.login-link');
+    const usuarioActivo = localStorage.getItem('ia_user');
+
+    if (usuarioActivo) {
+        // Si el usuario está en la memoria, cambiamos los enlaces de login a "Salir"
+        loginLinks.forEach(link => {
+            link.innerHTML = `<i class="fas fa-user-circle" style="margin-right: 5px;"></i> Salir`;
+            link.href = "#"; // Evita que lleve a login.html
+            link.style.color = "var(--accent-cyan)";
+            link.style.fontWeight = "500";
+
+            // Cuando hacen clic en "Salir", borramos la memoria y recargamos
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('ia_user');
+                window.location.href = "index.html"; 
+            });
+        });
     }
 });

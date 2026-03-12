@@ -7,6 +7,16 @@
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2083/2083213.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        const usuario = localStorage.getItem('ia_user');
+        const haPagado = localStorage.getItem('pago_exitoso');
+        
+        // Si no hay usuario logueado O no tiene el ticket de pago... ¡Patada al inicio!
+        if (!usuario || !haPagado) {
+            window.location.replace("index.html");
+        }
+    </script>
 </head>
 <body class="auth-page">
     <div class="custom-cursor" id="custom-cursor"></div>

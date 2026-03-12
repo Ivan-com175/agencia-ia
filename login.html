@@ -107,10 +107,12 @@
                 btnGoogle.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Conectando...';
                 
                 signInWithPopup(auth, googleProvider).then((result) => {
+                    // GUARDAMOS EL USUARIO EN LA MEMORIA
+                    localStorage.setItem('ia_user', result.user.email); 
+                    
                     btnGoogle.style.background = "#28a745"; 
                     btnGoogle.style.color = "white";
                     btnGoogle.innerHTML = '<i class="fas fa-check"></i> Acceso Correcto';
-                    // Redirigir a inicio (index.html)
                     setTimeout(() => { window.location.href = "index.html"; }, 1000);
                 }).catch((error) => {
                     alert("Error con Google: " + error.message);
@@ -131,9 +133,11 @@
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creando...';
 
                 createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+                    // GUARDAMOS EL USUARIO EN LA MEMORIA
+                    localStorage.setItem('ia_user', userCredential.user.email); 
+                    
                     btn.style.background = "#28a745"; 
                     btn.innerHTML = '<i class="fas fa-check"></i> Cuenta Creada';
-                    // Al crearse la cuenta, Firebase inicia sesión automáticamente. Redirigimos a inicio.
                     setTimeout(() => { window.location.href = "index.html"; }, 1000);
                 }).catch((error) => {
                     alert("Error: " + error.message); 
@@ -154,9 +158,11 @@
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
 
                 signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+                    // GUARDAMOS EL USUARIO EN LA MEMORIA
+                    localStorage.setItem('ia_user', userCredential.user.email); 
+                    
                     btn.style.background = "#28a745"; 
                     btn.innerHTML = '<i class="fas fa-check"></i> Acceso Correcto';
-                    // Redirigir a inicio (index.html)
                     setTimeout(() => { window.location.href = "index.html"; }, 1000);
                 }).catch((error) => {
                     alert("Usuario o contraseña incorrectos."); 
