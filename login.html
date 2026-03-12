@@ -18,7 +18,6 @@
                 <h2>IA Inmobiliaria</h2>
             </a>
             <div class="actions">
-                <button id="theme-toggle" class="icon-btn" aria-label="Cambiar tema"><i class="fas fa-sun"></i></button>
                 <a href="index.html" class="cta-button outline" style="padding: 8px 15px; white-space: nowrap;">Volver</a>
             </div>
         </div>
@@ -33,7 +32,7 @@
                 <button class="auth-tab" id="tab-register">Registrarse</button>
             </div>
 
-            <button class="google-btn">
+            <button type="button" id="google-login-btn" class="google-btn">
                 <svg width="20" height="20" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
                     <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
@@ -41,18 +40,18 @@
                     <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.46-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
                 </svg>
                 Continuar con Google
-            <button type="button" id="google-login-btn" class="google-btn">
+            </button>
 
             <div class="auth-separator"><span>o con tu email</span></div>
 
             <form id="form-login" class="auth-form active" onsubmit="event.preventDefault();">
                 <div class="form-group">
                     <label>Correo Electrónico</label>
-                    <input type="email" placeholder="ejemplo@inmobiliaria.com" required>
+                    <input type="email" id="login-email" placeholder="ejemplo@inmobiliaria.com" required>
                 </div>
                 <div class="form-group">
                     <label>Contraseña</label>
-                    <input type="password" placeholder="••••••••" required>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
                 </div>
                 <div class="auth-options">
                     <label class="remember-me"><input type="checkbox"> Recordarme</label>
@@ -64,73 +63,62 @@
             <form id="form-register" class="auth-form hidden" onsubmit="event.preventDefault();">
                 <div class="form-group">
                     <label>Nombre Completo</label>
-                    <input type="text" placeholder="Tu nombre" required>
+                    <input type="text" id="reg-name" placeholder="Tu nombre" required>
                 </div>
                 <div class="form-group">
                     <label>Correo Electrónico</label>
-                    <input type="email" placeholder="ejemplo@inmobiliaria.com" required>
+                    <input type="email" id="reg-email" placeholder="ejemplo@inmobiliaria.com" required>
                 </div>
                 <div class="form-group">
                     <label>Contraseña</label>
-                    <input type="password" placeholder="Mínimo 8 caracteres" required>
+                    <input type="password" id="reg-password" placeholder="Mínimo 8 caracteres" required>
                 </div>
                 <button type="submit" class="cta-button full-width">Crear Cuenta Gratis</button>
                 <p class="auth-terms">Al registrarte, aceptas nuestros <a href="#">Términos</a> y <a href="#">Política de Privacidad</a>.</p>
             </form>
         </div>
     </section>
+    
     <script src="script.js"></script>
+
     <script type="module">
-  // Importamos las herramientas de Google Firebase
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
 
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyBGCs8QJtlIXXWnhOIpRjGsGf5Su5uYzbs",
-    authDomain: "ia-inmobiliaria-e9451.firebaseapp.com",
-    projectId: "ia-inmobiliaria-e9451",
-    storageBucket: "ia-inmobiliaria-e9451.firebasestorage.app",
-    messagingSenderId: "391661757735",
-    appId: "1:391661757735:web:9f1ae78ffd683c1e9bb502"
-  };
+        // Tus llaves reales configuradas
+        const firebaseConfig = {
+            apiKey: "AIzaSyBGCs8QJtlIXXWnhOIpRjGsGf5Su5uYzbs",
+            authDomain: "ia-inmobiliaria-e9451.firebaseapp.com",
+            projectId: "ia-inmobiliaria-e9451",
+            storageBucket: "ia-inmobiliaria-e9451.firebasestorage.app",
+            messagingSenderId: "391661757735",
+            appId: "1:391661757735:web:9f1ae78ffd683c1e9bb502"
+        };
 
-  // Inicializar Firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-        // Inicializar el proveedor de Google
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
         const googleProvider = new GoogleAuthProvider();
 
-        // 1. INICIO DE SESIÓN CON GOOGLE (¡NUEVO!)
+        // 1. INICIO DE SESIÓN CON GOOGLE
         const btnGoogle = document.getElementById('google-login-btn');
         if(btnGoogle) {
             btnGoogle.addEventListener('click', () => {
-                // Cambiamos el texto para que el usuario sepa que está cargando
                 const textoOriginal = btnGoogle.innerHTML;
-                btnGoogle.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Conectando con Google...';
+                btnGoogle.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Conectando...';
                 
-                signInWithPopup(auth, googleProvider)
-                    .then((result) => {
-                        // ¡Éxito! El usuario se logueó con Google
-                        btnGoogle.style.background = "#28a745";
-                        btnGoogle.style.color = "white";
-                        btnGoogle.innerHTML = '<i class="fas fa-check"></i> Acceso Correcto';
-                        
-                        // Lo enviamos a la zona de descargas
-                        setTimeout(() => {
-                            window.location.href = "exito.html"; 
-                        }, 1000);
-                    }).catch((error) => {
-                        console.error(error);
-                        alert("Error al iniciar sesión con Google.");
-                        btnGoogle.innerHTML = textoOriginal; // Restauramos el botón
-                    });
+                signInWithPopup(auth, googleProvider).then((result) => {
+                    btnGoogle.style.background = "#28a745"; 
+                    btnGoogle.style.color = "white";
+                    btnGoogle.innerHTML = '<i class="fas fa-check"></i> Acceso Correcto';
+                    setTimeout(() => { window.location.href = "exito.html"; }, 1000);
+                }).catch((error) => {
+                    alert("Error al iniciar sesión con Google: " + error.message);
+                    btnGoogle.innerHTML = textoOriginal;
+                });
             });
         }
 
-        // 2. SISTEMA DE REGISTRO POR EMAIL
+        // 2. REGISTRO POR CORREO Y CONTRASEÑA
         const formRegister = document.getElementById('form-register');
         if(formRegister) {
             formRegister.addEventListener('submit', (e) => {
@@ -141,20 +129,18 @@
                 
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creando cuenta...';
 
-                createUserWithEmailAndPassword(auth, email, password)
-                    .then((userCredential) => {
-                        alert("¡Cuenta creada con éxito! Ya puedes iniciar sesión.");
-                        btn.innerHTML = 'Crear Cuenta Gratis';
-                        document.getElementById('tab-login').click(); 
-                    })
-                    .catch((error) => {
-                        alert("Error al registrarse: " + error.message);
-                        btn.innerHTML = 'Crear Cuenta Gratis';
-                    });
+                createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+                    alert("¡Cuenta creada con éxito! Ya puedes iniciar sesión.");
+                    btn.innerHTML = 'Crear Cuenta Gratis'; 
+                    document.getElementById('tab-login').click(); 
+                }).catch((error) => {
+                    alert("Error al crear la cuenta: " + error.message); 
+                    btn.innerHTML = 'Crear Cuenta Gratis';
+                });
             });
         }
 
-        // 3. SISTEMA DE INICIO DE SESIÓN POR EMAIL
+        // 3. INICIO DE SESIÓN POR CORREO Y CONTRASEÑA
         const formLogin = document.getElementById('form-login');
         if(formLogin) {
             formLogin.addEventListener('submit', (e) => {
@@ -162,24 +148,19 @@
                 const email = document.getElementById('login-email').value;
                 const password = document.getElementById('login-password').value;
                 const btn = formLogin.querySelector('button');
-
+                
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
 
-                signInWithEmailAndPassword(auth, email, password)
-                    .then((userCredential) => {
-                        btn.style.background = "#28a745";
-                        btn.innerHTML = '<i class="fas fa-check"></i> Acceso Correcto';
-                        setTimeout(() => {
-                            window.location.href = "exito.html"; 
-                        }, 1000);
-                    })
-                    .catch((error) => {
-                        alert("Usuario o contraseña incorrectos.");
-                        btn.innerHTML = 'Entrar a mi cuenta';
-                    });
+                signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+                    btn.style.background = "#28a745"; 
+                    btn.innerHTML = '<i class="fas fa-check"></i> Acceso Correcto';
+                    setTimeout(() => { window.location.href = "exito.html"; }, 1000);
+                }).catch((error) => {
+                    alert("Usuario o contraseña incorrectos."); 
+                    btn.innerHTML = 'Entrar a mi cuenta';
+                });
             });
         }
     </script>
 </body>
 </html>
-
