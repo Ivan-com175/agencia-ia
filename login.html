@@ -80,5 +80,76 @@
         </div>
     </section>
     <script src="script.js"></script>
+    <script type="module">
+  // Importamos las herramientas de Google Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBGCs8QJtlIXXWnhOIpRjGsGf5Su5uYzbs",
+    authDomain: "ia-inmobiliaria-e9451.firebaseapp.com",
+    projectId: "ia-inmobiliaria-e9451",
+    storageBucket: "ia-inmobiliaria-e9451.firebasestorage.app",
+    messagingSenderId: "391661757735",
+    appId: "1:391661757735:web:9f1ae78ffd683c1e9bb502"
+  };
+
+  // Inicializar Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+        // 1. SISTEMA DE REGISTRO DE USUARIOS
+        const formRegister = document.getElementById('form-register');
+        if(formRegister) {
+            formRegister.addEventListener('submit', (e) => {
+                e.preventDefault(); // Evita que recargue la página
+                const email = document.getElementById('reg-email').value;
+                const password = document.getElementById('reg-password').value;
+                const btn = formRegister.querySelector('button');
+                
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creando cuenta...';
+
+                createUserWithEmailAndPassword(auth, email, password)
+                    .then((userCredential) => {
+                        alert("¡Cuenta creada con éxito! Ya puedes iniciar sesión.");
+                        btn.innerHTML = 'Crear Cuenta Gratis';
+                        document.getElementById('tab-login').click(); // Te lleva a la pestaña de login
+                    })
+                    .catch((error) => {
+                        alert("Error al registrarse: " + error.message);
+                        btn.innerHTML = 'Crear Cuenta Gratis';
+                    });
+            });
+        }
+
+        // 2. SISTEMA DE INICIO DE SESIÓN
+        const formLogin = document.getElementById('form-login');
+        if(formLogin) {
+            formLogin.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                const btn = formLogin.querySelector('button');
+
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
+
+                signInWithEmailAndPassword(auth, email, password)
+                    .then((userCredential) => {
+                        // ¡Si todo es correcto, lo enviamos al archivo PDF!
+                        btn.style.background = "#28a745";
+                        btn.innerHTML = '<i class="fas fa-check"></i> Acceso Correcto';
+                        setTimeout(() => {
+                            window.location.href = "exito.html"; 
+                        }, 1000);
+                    })
+                    .catch((error) => {
+                        alert("Usuario o contraseña incorrectos.");
+                        btn.innerHTML = 'Entrar a mi cuenta';
+                    });
+            });
+        }
+</script>
 </body>
 </html>
