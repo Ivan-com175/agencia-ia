@@ -41,7 +41,7 @@
                     <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.46-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
                 </svg>
                 Continuar con Google
-            </button>
+            <button type="button" id="google-login-btn" class="google-btn">
 
             <div class="auth-separator"><span>o con tu email</span></div>
 
@@ -100,11 +100,41 @@
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
-        // 1. SISTEMA DE REGISTRO DE USUARIOS
+        // Inicializar el proveedor de Google
+        const googleProvider = new GoogleAuthProvider();
+
+        // 1. INICIO DE SESIÓN CON GOOGLE (¡NUEVO!)
+        const btnGoogle = document.getElementById('google-login-btn');
+        if(btnGoogle) {
+            btnGoogle.addEventListener('click', () => {
+                // Cambiamos el texto para que el usuario sepa que está cargando
+                const textoOriginal = btnGoogle.innerHTML;
+                btnGoogle.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Conectando con Google...';
+                
+                signInWithPopup(auth, googleProvider)
+                    .then((result) => {
+                        // ¡Éxito! El usuario se logueó con Google
+                        btnGoogle.style.background = "#28a745";
+                        btnGoogle.style.color = "white";
+                        btnGoogle.innerHTML = '<i class="fas fa-check"></i> Acceso Correcto';
+                        
+                        // Lo enviamos a la zona de descargas
+                        setTimeout(() => {
+                            window.location.href = "exito.html"; 
+                        }, 1000);
+                    }).catch((error) => {
+                        console.error(error);
+                        alert("Error al iniciar sesión con Google.");
+                        btnGoogle.innerHTML = textoOriginal; // Restauramos el botón
+                    });
+            });
+        }
+
+        // 2. SISTEMA DE REGISTRO POR EMAIL
         const formRegister = document.getElementById('form-register');
         if(formRegister) {
             formRegister.addEventListener('submit', (e) => {
-                e.preventDefault(); // Evita que recargue la página
+                e.preventDefault(); 
                 const email = document.getElementById('reg-email').value;
                 const password = document.getElementById('reg-password').value;
                 const btn = formRegister.querySelector('button');
@@ -115,7 +145,7 @@
                     .then((userCredential) => {
                         alert("¡Cuenta creada con éxito! Ya puedes iniciar sesión.");
                         btn.innerHTML = 'Crear Cuenta Gratis';
-                        document.getElementById('tab-login').click(); // Te lleva a la pestaña de login
+                        document.getElementById('tab-login').click(); 
                     })
                     .catch((error) => {
                         alert("Error al registrarse: " + error.message);
@@ -124,7 +154,7 @@
             });
         }
 
-        // 2. SISTEMA DE INICIO DE SESIÓN
+        // 3. SISTEMA DE INICIO DE SESIÓN POR EMAIL
         const formLogin = document.getElementById('form-login');
         if(formLogin) {
             formLogin.addEventListener('submit', (e) => {
@@ -137,7 +167,6 @@
 
                 signInWithEmailAndPassword(auth, email, password)
                     .then((userCredential) => {
-                        // ¡Si todo es correcto, lo enviamos al archivo PDF!
                         btn.style.background = "#28a745";
                         btn.innerHTML = '<i class="fas fa-check"></i> Acceso Correcto';
                         setTimeout(() => {
@@ -150,7 +179,7 @@
                     });
             });
         }
-</script>
+    </script>
 </body>
 </html>
 
