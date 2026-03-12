@@ -8,24 +8,21 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <script>
-    // 1. Miramos si en la URL viene el código de éxito de Gumroad
+   <script>
+    // 1. Detectamos el "ticket" de Gumroad desde la URL de Netlify
     const urlParams = new URLSearchParams(window.location.search);
     const pagoConfirmado = urlParams.get('pago') === 'completado';
 
-    // 2. Si viene de pagar, le damos el permiso permanente en este navegador
     if (pagoConfirmado) {
         localStorage.setItem('pago_exitoso', 'true');
-        // Limpiamos la URL para que no se vea el "?pago=completado"
+        // Esto limpia la URL para que no se vea el "?pago=completado" en Netlify
         window.history.replaceState(null, null, window.location.pathname);
     }
 
-    // 3. Verificamos si tiene los dos requisitos para estar aquí
     const usuarioLogueado = localStorage.getItem('ia_user');
     const tieneTicketPago = localStorage.getItem('pago_exitoso');
 
     if (!usuarioLogueado || !tieneTicketPago) {
-        // Si falta algo, lo mandamos al inicio
         window.location.replace("index.html");
     }
 </script>
