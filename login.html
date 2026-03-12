@@ -45,7 +45,7 @@
 
             <div class="auth-separator"><span>o con tu email</span></div>
 
-            <form id="form-login" class="auth-form active">
+            <form id="form-login" class="auth-form active" onsubmit="event.preventDefault();">
                 <div class="form-group">
                     <label>Correo Electrónico</label>
                     <input type="email" placeholder="ejemplo@inmobiliaria.com" required>
@@ -61,7 +61,7 @@
                 <button type="submit" class="cta-button full-width">Entrar a mi cuenta</button>
             </form>
 
-            <form id="form-register" class="auth-form hidden">
+            <form id="form-register" class="auth-form hidden" onsubmit="event.preventDefault();">
                 <div class="form-group">
                     <label>Nombre Completo</label>
                     <input type="text" placeholder="Tu nombre" required>
@@ -153,3 +153,4 @@
 </script>
 </body>
 </html>
+
