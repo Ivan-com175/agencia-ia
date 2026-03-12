@@ -136,28 +136,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 7. MODO CLARO/OSCURO
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    if (themeToggleBtn) {
-        const themeIcon = themeToggleBtn.querySelector('i');
-        if (localStorage.getItem('theme') === 'light') { document.body.setAttribute('data-theme', 'light'); themeIcon.classList.replace('fa-sun', 'fa-moon'); }
-        themeToggleBtn.addEventListener('click', () => {
-            if (document.body.getAttribute('data-theme') === 'light') {
-                document.body.removeAttribute('data-theme'); localStorage.setItem('theme', 'dark'); themeIcon.classList.replace('fa-moon', 'fa-sun');
-            } else {
-                document.body.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light'); themeIcon.classList.replace('fa-sun', 'fa-moon');
-            }
-        });
-    }
-
-    // 8. SCROLL TOP
+    // 7. SCROLL TOP
     const scrollTopBtn = document.getElementById('scroll-to-top');
     if (scrollTopBtn) {
         window.addEventListener('scroll', () => { scrollTopBtn.classList.toggle('hidden', window.scrollY <= 400); });
         scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     }
 
-    // 9. LOGIN Y REGISTRO
+    // 8. LOGIN Y REGISTRO
     const tabLogin = document.getElementById('tab-login');
     const tabRegister = document.getElementById('tab-register');
     const formLogin = document.getElementById('form-login');
@@ -175,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 10. CARRITO DE COMPRAS
+    // 9. CARRITO DE COMPRAS
     const cartToggleBtn = document.getElementById('cart-toggle');
     const closeCartBtn = document.getElementById('close-cart');
     const cartSidebar = document.getElementById('cart-sidebar');
@@ -241,7 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateCartUI();
 
-    // 11. CHECKOUT LOGIC
+    // 10. CHECKOUT LOGIC
     const checkoutItemsContainer = document.getElementById('checkout-items');
     const checkoutTotalPriceFinal = document.getElementById('checkout-total-price');
 
@@ -272,7 +258,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     btn.innerHTML = '<i class="fas fa-check"></i> Pago Completado con Éxito';
                     btn.style.background = "linear-gradient(45deg, #28a745, #20c997)"; btn.style.opacity = '1';
                     localStorage.removeItem('neuralmark_cart'); 
-                    // Redirigimos a la página de descarga después de 2 segundos de éxito
                     setTimeout(() => { window.location.href = 'exito.html'; }, 2000);
                 }, 2500);
             });
