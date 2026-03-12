@@ -4,54 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acceso VIP - IA Inmobiliaria</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2083/2083213.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* DISEÑO INTEGRADO PARA EVITAR ERRORES DE RUTA */
+        /* RECUPERANDO TU INTERFAZ ORIGINAL */
         :root {
             --bg-dark: #0a0a0a;
-            --card-bg: #141414;
             --accent-purple: #8257e5;
+            --accent-cyan: #00f2ff;
             --text-main: #ffffff;
             --text-muted: #a0a0a0;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-dark);
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 20% 35%, rgba(130, 87, 229, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 65%, rgba(0, 242, 255, 0.1) 0%, transparent 40%);
             color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
         }
 
         .auth-container {
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             padding: 20px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .auth-box {
-            background: var(--card-bg);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             padding: 40px;
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
-        h2 { margin-bottom: 10px; font-size: 24px; }
-        p { color: var(--text-muted); margin-bottom: 30px; font-size: 14px; }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 24px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover { color: var(--text-main); }
+
+        h2 { font-size: 28px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
+        p { color: var(--text-muted); margin-bottom: 32px; font-size: 15px; }
 
         .google-btn {
             width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #333;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
             background: white;
             color: #000;
             font-weight: 600;
@@ -59,86 +85,101 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            transition: 0.3s;
+            gap: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .google-btn:hover { background: #f1f1f1; transform: translateY(-2px); }
+        .google-btn:hover {
+            background: #f8f8f8;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+        }
 
         .divider {
-            margin: 25px 0;
+            margin: 24px 0;
             display: flex;
             align-items: center;
             color: var(--text-muted);
             font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .divider::before, .divider::after {
             content: "";
             flex: 1;
             height: 1px;
-            background: rgba(255,255,255,0.1);
-            margin: 0 10px;
+            background: var(--glass-border);
+            margin: 0 16px;
         }
 
         input {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            background: #000;
-            border: 1px solid #333;
-            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
             color: white;
+            font-size: 15px;
+            transition: 0.3s;
             box-sizing: border-box;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 0 4px rgba(130, 87, 229, 0.1);
         }
 
         .cta-button {
             width: 100%;
-            padding: 14px;
-            background: var(--accent-purple);
+            padding: 16px;
+            background: linear-gradient(135deg, var(--accent-purple), #9466ff);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-weight: bold;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s;
+            margin-top: 8px;
         }
 
-        .cta-button:hover { background: #9466ff; box-shadow: 0 0 20px rgba(130, 87, 229, 0.4); }
-
-        .toggle-auth { margin-top: 20px; font-size: 14px; color: var(--text-muted); }
-        .toggle-auth a { color: var(--accent-purple); text-decoration: none; font-weight: bold; }
-        
-        .back-link {
-            display: block;
-            margin-bottom: 20px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 14px;
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(130, 87, 229, 0.4);
         }
+
+        .toggle-auth { margin-top: 24px; font-size: 14px; color: var(--text-muted); }
+        .toggle-auth a { color: var(--accent-cyan); text-decoration: none; font-weight: 600; }
+        .toggle-auth a:hover { text-decoration: underline; }
+
     </style>
 </head>
 <body>
     <div class="auth-container">
-        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver a la web</a>
+        <a href="index.html" class="back-link"><i class="fas fa-chevron-left"></i> Volver a la web principal</a>
+        
         <div class="auth-box">
             <h2>Bienvenido</h2>
             <p>Accede para gestionar tu Master Kit</p>
 
             <button id="btn-google" class="google-btn">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20" alt="G">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" alt="G">
                 Continuar con Google
             </button>
 
-            <div class="divider"><span>o con tu email</span></div>
+            <div class="divider"><span>O usa tu correo</span></div>
 
             <form id="auth-form">
-                <input type="email" id="email" placeholder="Email" required>
+                <input type="email" id="email" placeholder="Correo electrónico" required>
                 <input type="password" id="password" placeholder="Contraseña" required>
                 <button type="submit" id="btn-main" class="cta-button">Entrar ahora</button>
             </form>
             
-            <p class="toggle-auth">¿No tienes cuenta? <a href="#" id="toggle-link">Regístrate</a></p>
+            <p class="toggle-auth">¿No tienes cuenta? <a href="#" id="toggle-link">Regístrate gratis</a></p>
         </div>
     </div>
 
@@ -182,13 +223,13 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
-            btnMain.innerText = "Cargando...";
+            btnMain.innerText = "Verificando...";
 
             if (isLogin) {
                 signInWithEmailAndPassword(auth, email, password).then(() => {
                     localStorage.setItem('ia_user', email);
                     redireccionInteligente();
-                }).catch(err => { alert("Error: " + err.message); btnMain.innerText = "Entrar"; });
+                }).catch(err => { alert("Error: " + err.message); btnMain.innerText = "Entrar ahora"; });
             } else {
                 createUserWithEmailAndPassword(auth, email, password).then(() => {
                     localStorage.setItem('ia_user', email);
@@ -201,7 +242,7 @@
             e.preventDefault();
             isLogin = !isLogin;
             btnMain.innerText = isLogin ? "Entrar ahora" : "Crear Cuenta";
-            toggleLink.innerText = isLogin ? "Regístrate" : "Inicia Sesión";
+            toggleLink.innerText = isLogin ? "Regístrate gratis" : "Inicia Sesión";
         });
     </script>
 </body>
