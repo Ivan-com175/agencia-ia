@@ -1,25 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // 1. CURSOR PERSONALIZADO PREMIUM
+    // 1. CURSOR
     const cursor = document.getElementById('custom-cursor');
     if (cursor && window.matchMedia("(pointer: fine)").matches) {
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+            cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
         });
-        const clickables = document.querySelectorAll('a, button, input, .accordion-header, .auth-tab');
-        clickables.forEach(item => {
+        document.querySelectorAll('a, button, input, .auth-tab').forEach(item => {
             item.addEventListener('mouseenter', () => cursor.classList.add('hover-effect'));
             item.addEventListener('mouseleave', () => cursor.classList.remove('hover-effect'));
         });
-    } else if (cursor) {
-        cursor.style.display = 'none';
-    }
+    } else if (cursor) { cursor.style.display = 'none'; }
 
-    // 2. EFECTO DE ESCRITURA ANIMADA
+    // 2. EFECTO ESCRITURA INMOBILIARIA
     const typedTextSpan = document.querySelector(".typed-text");
     if (typedTextSpan) {
-        const textArray = ["AUTOMATIZACIÓN.", "PERSONALIZACIÓN.", "RESULTADOS REALES."];
+        const textArray = ["ATRAE EXCLUSIVAS.", "CERO PUERTA FRÍA.", "MÉTODO TRIPLE 'A'."];
         let textArrayIndex = 0; let charIndex = 0;
         function type() {
             if (charIndex < textArray[textArrayIndex].length) {
@@ -32,22 +28,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
                 charIndex--; setTimeout(erase, 40);
             } else {
-                textArrayIndex++;
-                if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+                textArrayIndex++; if (textArrayIndex >= textArray.length) textArrayIndex = 0;
                 setTimeout(type, 500);
             }
         }
         setTimeout(type, 1000);
     }
 
-    // 3. MOTOR DE PARTÍCULAS
+    // 3. PARTÍCULAS
     const canvas = document.getElementById('particle-canvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
         const parentSection = canvas.parentElement; 
         canvas.width = window.innerWidth; canvas.height = parentSection.offsetHeight;
         let particlesArray = [];
-
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
@@ -88,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = parentSection.offsetHeight; initParticles(); });
     }
 
-    // 4. ANIMACIONES FADE-IN
+    // 4. SCROLL ANIMATION
     const sectionsToAnimate = document.querySelectorAll('.fade-in-section');
     if (sectionsToAnimate.length > 0) {
         const observer = new IntersectionObserver((entries, obs) => {
@@ -97,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
         sectionsToAnimate.forEach(sec => observer.observe(sec));
     }
 
-    // 5. CONTADORES ANIMADOS
+    // 5. CONTADORES
     const counters = document.querySelectorAll('.counter');
     if (counters.length > 0) {
         let hasCounted = false;
@@ -119,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (statsSection) counterObserver.observe(statsSection);
     }
 
-    // 6. SIMULADOR IA
+    // 6. SIMULADOR IA INMOBILIARIO
     const aiForm = document.getElementById('ai-form');
     const resultArea = document.getElementById('result-area');
     if (aiForm) {
@@ -129,37 +123,20 @@ document.addEventListener("DOMContentLoaded", () => {
             const audience = document.getElementById('audience').value;
             const submitBtn = aiForm.querySelector('button[type="submit"]');
             
-            resultArea.classList.remove('hidden'); submitBtn.textContent = "PROCESANDO..."; submitBtn.style.opacity = "0.7";
-            resultArea.innerHTML = `<span style="color: var(--accent-cyan);">Iniciando agentes para analizar <strong>${product}</strong>...</span>`;
+            resultArea.classList.remove('hidden'); submitBtn.textContent = "ESCRIBIENDO PROMPT..."; submitBtn.style.opacity = "0.7";
+            resultArea.innerHTML = `<span style="color: var(--accent-cyan);">Aplicando Ingeniería de Prompts para ${product} en ${audience}...</span>`;
             
             setTimeout(() => {
                 resultArea.innerHTML = `
-                    <span style="color: var(--accent-violet); font-weight: 500;">✓ Copy Generado Exitosamente:</span><br><br>
-                    "¿Buscas llevar tu rendimiento al límite? Descubre el <strong>${product}</strong> diseñado para <strong>${audience}</strong> que no se conforman con lo ordinario. Domina tu rutina hoy."
+                    <span style="color: var(--accent-violet); font-weight: 500;">✓ Gancho Generado Exitosamente:</span><br><br>
+                    "Los precios en ${audience} acaban de marcar un nuevo récord este trimestre. Si eres propietario de un ${product}, probablemente tu vivienda vale hoy un 15% más que hace un año. ¿Quieres saber su valor exacto actual sin compromiso? Contáctame y te enviaré un informe predictivo en 24h."
                 `;
-                submitBtn.textContent = "GENERAR NUEVO COPY"; submitBtn.style.opacity = "1";
+                submitBtn.textContent = "GENERAR NUEVO GANCHO"; submitBtn.style.opacity = "1";
             }, 2000);
         });
     }
 
-    // 7. ACORDEÓN FAQ
-    const accordionHeaders = document.querySelectorAll('.accordion-header');
-    if (accordionHeaders.length > 0) {
-        accordionHeaders.forEach(header => {
-            header.addEventListener('click', () => {
-                header.classList.toggle('active');
-                const content = header.nextElementSibling;
-                content.style.maxHeight = header.classList.contains('active') ? content.scrollHeight + "px" : 0;
-                accordionHeaders.forEach(other => {
-                    if (other !== header && other.classList.contains('active')) {
-                        other.classList.remove('active'); other.nextElementSibling.style.maxHeight = 0;
-                    }
-                });
-            });
-        });
-    }
-
-    // 8. MODO CLARO / OSCURO
+    // 7. MODO CLARO/OSCURO
     const themeToggleBtn = document.getElementById('theme-toggle');
     if (themeToggleBtn) {
         const themeIcon = themeToggleBtn.querySelector('i');
@@ -173,14 +150,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 9. BOTÓN VOLVER ARRIBA
+    // 8. SCROLL TOP
     const scrollTopBtn = document.getElementById('scroll-to-top');
     if (scrollTopBtn) {
         window.addEventListener('scroll', () => { scrollTopBtn.classList.toggle('hidden', window.scrollY <= 400); });
         scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     }
 
-    // 10. LOGIN Y REGISTRO
+    // 9. LOGIN Y REGISTRO
     const tabLogin = document.getElementById('tab-login');
     const tabRegister = document.getElementById('tab-register');
     const formLogin = document.getElementById('form-login');
@@ -198,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 11. SISTEMA DE CARRITO DE COMPRAS
+    // 10. CARRITO DE COMPRAS
     const cartToggleBtn = document.getElementById('cart-toggle');
     const closeCartBtn = document.getElementById('close-cart');
     const cartSidebar = document.getElementById('cart-sidebar');
@@ -209,11 +186,9 @@ document.addEventListener("DOMContentLoaded", () => {
     
     let cart = JSON.parse(localStorage.getItem('neuralmark_cart')) || [];
 
-    // Función global para poder abrir el carrito desde el botón del menú directamente
     window.toggleCart = function() {
         if(cartSidebar && cartOverlay) {
-            cartSidebar.classList.toggle('active');
-            cartOverlay.classList.toggle('active');
+            cartSidebar.classList.toggle('active'); cartOverlay.classList.toggle('active');
             document.body.style.overflow = cartSidebar.classList.contains('active') ? 'hidden' : '';
         }
     }
@@ -224,48 +199,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateCartUI() {
         if(!cartItemsContainer) return;
-        
-        cartItemsContainer.innerHTML = '';
-        let total = 0;
+        cartItemsContainer.innerHTML = ''; let total = 0;
         
         cart.forEach((item, index) => {
             total += item.price;
             cartItemsContainer.innerHTML += `
                 <div class="cart-item">
-                    <div class="cart-item-info">
-                        <h4>${item.name}</h4>
-                        <p>€${item.price}</p>
-                    </div>
-                    <button class="remove-item" data-index="${index}" aria-label="Eliminar producto">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            `;
+                    <div class="cart-item-info"><h4>${item.name}</h4><p>€${item.price}</p></div>
+                    <button class="remove-item" data-index="${index}" aria-label="Eliminar producto"><i class="fas fa-trash"></i></button>
+                </div>`;
         });
         
         if(cart.length === 0) {
-            cartItemsContainer.innerHTML = `
-                <div style="text-align:center; padding-top: 50px; color: var(--text-muted);">
-                    <i class="fas fa-shopping-basket" style="font-size: 3em; margin-bottom: 15px; opacity: 0.5;"></i>
-                    <p>Tu carrito está vacío.</p>
-                </div>`;
+            cartItemsContainer.innerHTML = `<div style="text-align:center; padding-top: 50px; color: var(--text-muted);"><i class="fas fa-shopping-basket" style="font-size: 3em; margin-bottom: 15px; opacity: 0.5;"></i><p>Tu carrito está vacío.</p></div>`;
         }
         
         if(cartTotalPrice) cartTotalPrice.innerText = `€${total}`;
-        
-        cartBadges.forEach(badge => {
-            badge.innerText = cart.length;
-            badge.style.transform = 'scale(1.5)';
-            setTimeout(() => badge.style.transform = 'scale(1)', 200);
-        });
-        
+        cartBadges.forEach(badge => { badge.innerText = cart.length; badge.style.transform = 'scale(1.5)'; setTimeout(() => badge.style.transform = 'scale(1)', 200); });
         localStorage.setItem('neuralmark_cart', JSON.stringify(cart));
 
         document.querySelectorAll('.remove-item').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const index = e.currentTarget.getAttribute('data-index');
-                cart.splice(index, 1);
-                updateCartUI(); 
+                cart.splice(e.currentTarget.getAttribute('data-index'), 1); updateCartUI(); 
             });
         });
     }
@@ -273,87 +228,52 @@ document.addEventListener("DOMContentLoaded", () => {
     const addToCartBtns = document.querySelectorAll('.add-to-cart-btn');
     addToCartBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
-            const id = e.target.getAttribute('data-id');
-            const name = e.target.getAttribute('data-name');
-            const price = parseFloat(e.target.getAttribute('data-price'));
-            
-            cart.push({ id, name, price });
-            updateCartUI();
+            const id = e.target.getAttribute('data-id'); const name = e.target.getAttribute('data-name'); const price = parseFloat(e.target.getAttribute('data-price'));
+            cart.push({ id, name, price }); updateCartUI();
             
             const originalText = e.target.innerHTML;
             e.target.innerHTML = `<i class="fas fa-check"></i> ¡Añadido!`;
             e.target.style.background = "linear-gradient(45deg, #28a745, #20c997)"; 
-            
-            if(cartSidebar && !cartSidebar.classList.contains('active')) {
-                toggleCart();
-            }
-
-            setTimeout(() => {
-                e.target.innerHTML = originalText;
-                e.target.style.background = ""; 
-            }, 2000);
+            if(cartSidebar && !cartSidebar.classList.contains('active')) { toggleCart(); }
+            setTimeout(() => { e.target.innerHTML = originalText; e.target.style.background = ""; }, 2000);
         });
     });
 
     updateCartUI();
 
-    // =========================================
-    // 12. LÓGICA DE LA PÁGINA DE CHECKOUT
-    // =========================================
+    // 11. CHECKOUT LOGIC
     const checkoutItemsContainer = document.getElementById('checkout-items');
-    const checkoutTotalPrice = document.getElementById('checkout-total-price');
+    const checkoutTotalPriceFinal = document.getElementById('checkout-total-price');
 
-    if(checkoutItemsContainer && checkoutTotalPrice) {
-        // Leemos el carrito de la memoria
+    if(checkoutItemsContainer && checkoutTotalPriceFinal) {
         let checkoutCart = JSON.parse(localStorage.getItem('neuralmark_cart')) || [];
         let total = 0;
         
         if (checkoutCart.length === 0) {
             checkoutItemsContainer.innerHTML = '<p style="color: var(--text-muted); font-style: italic;">No tienes productos en tu pedido.</p>';
         } else {
-            // Dibujamos cada producto en la lista del recibo
             checkoutCart.forEach(item => {
                 total += item.price;
-                checkoutItemsContainer.innerHTML += `
-                    <div class="checkout-item">
-                        <span class="checkout-item-name">${item.name}</span>
-                        <span class="checkout-item-price">€${item.price}</span>
-                    </div>
-                `;
+                checkoutItemsContainer.innerHTML += `<div class="checkout-item"><span class="checkout-item-name">${item.name}</span><span class="checkout-item-price">€${item.price}</span></div>`;
             });
         }
         
-        // Ponemos el precio total
-        checkoutTotalPrice.innerText = `€${total}`;
+        checkoutTotalPriceFinal.innerText = `€${total}`;
         
-        // Simular el proceso de pago al enviar el formulario
         const checkoutForm = document.getElementById('checkout-form');
         if(checkoutForm) {
             checkoutForm.addEventListener('submit', (e) => {
-                e.preventDefault(); // Evitamos que la página se recargue
-                
-                if(checkoutCart.length === 0) {
-                    alert("Añade algún producto al carrito antes de pagar.");
-                    return;
-                }
-
+                e.preventDefault(); 
+                if(checkoutCart.length === 0) { alert("Añade algún producto al carrito antes de pagar."); return; }
                 const btn = checkoutForm.querySelector('button[type="submit"]');
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando pago con el banco...';
-                btn.style.opacity = '0.7';
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando pago con el banco...'; btn.style.opacity = '0.7';
                 
-                // Simulamos una espera de 2.5 segundos de carga
                 setTimeout(() => {
                     btn.innerHTML = '<i class="fas fa-check"></i> Pago Completado con Éxito';
-                    btn.style.background = "linear-gradient(45deg, #28a745, #20c997)";
-                    btn.style.opacity = '1';
-                    
-                    // Vaciamos el carrito porque ya se ha comprado
+                    btn.style.background = "linear-gradient(45deg, #28a745, #20c997)"; btn.style.opacity = '1';
                     localStorage.removeItem('neuralmark_cart'); 
-                    
-                    // Redirigimos al inicio después de 2 segundos de éxito
-                    setTimeout(() => {
-                        window.location.href = 'index.html'; 
-                    }, 2000);
+                    // Redirigimos a la página de descarga después de 2 segundos de éxito
+                    setTimeout(() => { window.location.href = 'exito.html'; }, 2000);
                 }, 2500);
             });
         }
